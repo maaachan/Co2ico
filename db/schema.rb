@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_04_063212) do
+ActiveRecord::Schema.define(version: 2022_04_07_053906) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_063212) do
   create_table "favorites", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "post_id"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -67,12 +69,15 @@ ActiveRecord::Schema.define(version: 2022_04_04_063212) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "post_hushtag_id"
   end
 
   create_table "post_comments", force: :cascade do |t|
     t.string "comment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "user_id"
+    t.integer "post_id"
   end
 
   create_table "post_hushtags", force: :cascade do |t|
@@ -89,6 +94,9 @@ ActiveRecord::Schema.define(version: 2022_04_04_063212) do
     t.string "address"
     t.float "latitude"
     t.float "longitude"
+    t.integer "user_id"
+    t.integer "genre_id"
+    t.string "image"
   end
 
   create_table "users", force: :cascade do |t|
@@ -99,6 +107,8 @@ ActiveRecord::Schema.define(version: 2022_04_04_063212) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "name"
+    t.string "image"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

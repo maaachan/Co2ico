@@ -1,11 +1,11 @@
+
 <h3>新規投稿</h3>
-
-<%= form_with model: Post.new do |f| %>
-
-  <h4>本文</h4>
+<%= form_with model: @post, url: '/posts', method: :post do |f| %>
+   <h4>本文</h4>
+  <%= f.file_field :image, accept: "image/*" %>
   <%= f.text_area :post_text %>
+  <%= f.collection_select :genre_id, @genres, :id, :name %>
 
   <%= f.submit '投稿' %>
-
 
 <% end %>

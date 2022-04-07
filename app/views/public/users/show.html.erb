@@ -1,2 +1,14 @@
-<h1>Public::Users#show</h1>
-<p>Find me in app/views/public/users/show.html.erb</p>
+<h3>ユーザー詳細</h3>
+
+  <%= @user.name %>
+  <%= image_tag @user.get_image, class: "rounded-circle", size: "150x150" %>
+  <%= link_to "編集", edit_user_path(@user),  class: "link" %>
+<h3>投稿一覧</h3>
+
+  <% @posts.each do |post| %>
+  <%= image_tag post.image %>
+  <%#= image_tag 'sample-author1.jpg' %></p>
+  <%= post.post_text %>
+  <%= link_to "詳細", post_path(post.id),  class: "link" %>
+<% end %>
+
