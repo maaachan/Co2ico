@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  namespace :public do
+    get 'relationships/followings'
+    get 'relationships/followers'
+  end
 # 顧客用
 # URL /customers/sign_in ...
 devise_for :users,skip: [:passwords], controllers: {
@@ -9,9 +13,18 @@ devise_for :users,skip: [:passwords], controllers: {
 
 scope module: :public do
   root 'homes#top'
-  resources :users, only: [:index, :edit, :show, :update, :unsubscribe, :withdraw]
+    get 'users/unsubscribe'
+    get 'users/withdraw'
+  resources :users, only: [:index, :edit, :show, :update, :unsubscribe, :withdraw]do
+    resource :relationships, only: [:create, :destroy]
+    
+    get 'followings' => 'relationships#followings', as: 'followings'
+    get 'followers' => 'relationships#followers', as: 'followers'
+  end
+
   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
      resource :favorites, only: [:create, :destroy]
+     resources :post_comments, only: [:create, :destroy]
   end
 end
 
@@ -23,6 +36,10 @@ end
 
   namespace :admin do
     get 'homes/top'
+    resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+     resource :favorites, only: [:create, :destroy]
+     resources :post_comments, only: [:create, :destroy]
+  end
     resources :users, only: [:index, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
   end

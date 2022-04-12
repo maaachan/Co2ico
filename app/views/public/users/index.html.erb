@@ -1,6 +1,5 @@
 <% @users.each do |user| %>
-
-<%= user.name %>
+<%= link_to user.name, user_path(user) %>
 <%= image_tag user.get_image, class: "rounded-circle", size: "150x150" %>
 
 <% end %>

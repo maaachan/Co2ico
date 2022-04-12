@@ -1,11 +1,92 @@
+<main>
+<table>
+    <%= form_with model: @post, url: '/posts', method: :post do |f| %>
+  <h3>新規投稿</h3>
+    <tr><th>画像</th><td><%= f.file_field :image, accept: "image/*" %></td></tr>
+    <tr><th>本文</th><td><%= f.text_area :post_text %></td></tr>
+    <tr><th>ジャンル</th><td><%= f.collection_select :genre_id, @genres, :id, :name %></td></tr>
+    <tr><th>価格帯</th>
+      <td><%= f.collection_select(:hushtag_ids, Hushtag.all, :id, :name,{include_hidden: false}, html_options: {}) do |hushtag| %>
+      <% end %>
+    </td></tr>
+</table>
 
-<h3>新規投稿</h3>
-<%= form_with model: @post, url: '/posts', method: :post do |f| %>
-   <h4>本文</h4>
-  <%= f.file_field :image, accept: "image/*" %>
-  <%= f.text_area :post_text %>
-  <%= f.collection_select :genre_id, @genres, :id, :name %>
 
-  <%= f.submit '投稿' %>
 
+
+<h2>Map</h2>
+
+<input id="address" type="textbox" value="GeekSalon">
+<input type="button" value="検索" onclick="codeAddress()">
+<p>マーカーをドラック＆ドロップで位置の調整ができます。<p>
+<div id='map'></div>
+
+<style>
+#map {
+  height: 600px;
+  width: 600px;
+}
+</style>
+
+<script>
+//初期マップの設定
+let map
+let marker
+function initMap(){
+  geocoder = new google.maps.Geocoder()
+
+  map = new google.maps.Map(document.getElementById('map'), {
+    center:  {lat: 35.6803997, lng:139.7690174},  //東京
+    zoom: 15,
+
+  });
+}
+
+//検索後のマップ作成
+let geocoder
+let aft
+function codeAddress(){
+  let inputAddress = document.getElementById('address').value;
+  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
+    if (status == 'OK') {
+        //マーカーが複数できないようにする
+        if (aft == true){
+            marker.setMap(null);
+        }
+
+        //新しくマーカーを作成する
+        map.setCenter(results[0].geometry.location);
+            marker = new google.maps.Marker({
+            map: map,
+            position: results[0].geometry.location,
+            draggable: true // ドラッグ可能にする
+        });
+
+        //二度目以降か判断
+        aft = true
+
+        //検索した時に緯度経度を入力する
+        document.getElementById('lat').value = results[0].geometry.location.lat();
+        document.getElementById('lng').value = results[0].geometry.location.lng();
+
+        // マーカーのドロップ（ドラッグ終了）時のイベント
+        google.maps.event.addListener( marker, 'dragend', function(ev){
+            // イベントの引数evの、プロパティ.latLngが緯度経度
+            document.getElementById('latitude').value = ev.latLng.latitude();
+            document.getElementById('longitude').value = ev.latLng.longitude();
+        });
+    } else {
+      alert('該当する結果がありませんでした：' + status);
+    }
+  });
+}
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API']%>&callback=initMap" ></script>
+
+ </div>
+ <%= link_to "戻る", user_path(@user),  class: "button" %>
+<%= f.submit '投稿',  class: "button" %>
 <% end %>
+</main>

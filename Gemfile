@@ -64,4 +64,3 @@ gem 'mysql2'
 end
 gem 'google_places'
 gem "gmaps4rails"
-gem "geocoder"

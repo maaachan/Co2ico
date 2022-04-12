@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_07_053906) do
+ActiveRecord::Schema.define(version: 2022_04_11_122924) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 2022_04_07_053906) do
   create_table "post_hushtags", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "post_id"
+    t.integer "hushtag_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -99,6 +101,13 @@ ActiveRecord::Schema.define(version: 2022_04_07_053906) do
     t.string "image"
   end
 
+  create_table "relationships", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -109,6 +118,7 @@ ActiveRecord::Schema.define(version: 2022_04_07_053906) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "name"
     t.string "image"
+    t.boolean "is_deleted", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

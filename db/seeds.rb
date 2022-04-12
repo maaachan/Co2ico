@@ -9,3 +9,12 @@ Admin.create!(
    email: 'admin@admin',
    password: 'testtest'
 )
+
+
+Hushtag.create([
+    { name: 'Henderschema' },
+    { name: 'studious' },
+    { name: 'clane'},
+    { name: 'beautifulpeaple'},
+    { name: 'ships'},
+    ])
