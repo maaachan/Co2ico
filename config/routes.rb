@@ -10,14 +10,19 @@ devise_for :users,skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
 }
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in'
+
+  end
+
 
 scope module: :public do
   root 'homes#top'
     get 'users/unsubscribe'
-    get 'users/withdraw'
+    patch 'users/withdraw'
   resources :users, only: [:index, :edit, :show, :update, :unsubscribe, :withdraw]do
     resource :relationships, only: [:create, :destroy]
-    
+
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
   end
@@ -25,6 +30,7 @@ scope module: :public do
   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
      resource :favorites, only: [:create, :destroy]
      resources :post_comments, only: [:create, :destroy]
+
   end
 end
 
@@ -43,7 +49,5 @@ end
     resources :users, only: [:index, :show, :edit, :update]
     resources :genres, only: [:index, :create, :edit, :update]
   end
-
-
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -1,9 +1,7 @@
-
-
-<%= paginate @users %>
-<section class="inner">
+<main>
 	<h2 class="section-ttl">会員一覧</h2>
 	<%= render 'index', users: @users %>
+	<%= link_to "戻る", admin_homes_top_path, class: 'button' %>
 	<%= paginate @users %>
-</section>
 
+</main>

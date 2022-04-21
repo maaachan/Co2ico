@@ -3,7 +3,7 @@
 		<th>会員ID</th>
 		<th>名前</th>
 		<th>会員ステータス</th>
-		
+
 	</thead>
 	<tbody>
 		<% users.each do |user| %>
@@ -11,14 +11,15 @@
 				<td><%= user.id %></td>
 				<td><%= user.name %></td>
 				<td>
-					<% if user.is_active? %>
-						<span class="text-active">登録ユーザー</span>	
+					<% if user.is_deleted? %>
+						<span class="text-active">退会ユーザー</span>
 					<% else %>
-						<span class="text-invalid">退会ユーザー</span>
+						<span class="text-invalid">登録ユーザー</span>
 					<% end %>
 				</td>
-				<td><%= link_to "詳細", admin_user_path(user), class: "btn btn-primary" %></td>
+				<td><%= link_to "詳細", admin_user_path(user), class: "button" %></td>
 			</tr>
 		<% end %>
 	</tbody>
+	</div>
 </table>

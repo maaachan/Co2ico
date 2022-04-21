@@ -5,7 +5,7 @@ before_action :set_user, only: [:followings, :followers]
   end
 
   def show
-     @user = User.find(params[:id])
+    @user = User.find(params[:id])
     @posts = @user.posts
 
   end
@@ -18,9 +18,9 @@ before_action :set_user, only: [:followings, :followers]
     @user = current_user
     @user.update(user_params)
     redirect_to user_path(@user)
- 
+
   end
-  
+
   def followings
     @users = @user.followings
   end
@@ -29,14 +29,15 @@ before_action :set_user, only: [:followings, :followers]
     @users = @user.followers
   end
 
-  
+
 
   def unsubscribe
     @user=current_user
   end
 
   def withdraw
-    @user.update(is_active: false)
+    @user = User.find(current_user.id)
+    @user.update(is_deleted: true)
     reset_session
     redirect_to root_path
   end
@@ -48,13 +49,13 @@ before_action :set_user, only: [:followings, :followers]
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :image, :deleted)
+    params.require(:user).permit(:name, :email, :image, :is_deleted)
   end
 
   def set_user
     @user = User.find(params[:id])
   end
-  
-  
-  
+
+
+
 end

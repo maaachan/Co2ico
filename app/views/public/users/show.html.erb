@@ -1,34 +1,87 @@
 
 <main>
-<h3>ユーザー詳細</h3>
 
-  <%= @user.name %>
+    <div class="container">
+      <h5>ユーザー詳細</h5>
+      <div class="row">
+        <div class="col">
+          <table>
+            <tr>
+              <td><%= @user.name %></td>
+            </tr>
+            <tr>
+              <td><%= image_tag @user.get_image, class: "rounded-circle", size: "200x200" %></td>
+            </tr>
+            <tr>
+              <td>
+                 <% if current_user != @user%>
+                  <% if current_user.following?(@user) %>
+                  <%= link_to "フォロー外す", user_relationships_path(@user), method: :delete %>
+                  <% else %>
+                  <%= link_to "フォローする", user_relationships_path(@user), method: :post %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+            <tr>
+              <td> <%= link_to "フォロー", user_followings_path(@user) %><%= @user.followings.count %></td>
+            </tr>
+            <tr>
+              <td><%= link_to "フォロワー", user_followers_path(@user) %><%= @user.followers.count %></td>
+            </tr>
 
-<% if current_user != @user%>
-  <% if current_user.following?(@user) %>
-  <%= link_to "フォロー外す", user_relationships_path(@user), method: :delete %>
-<% else %>
-  <%= link_to "フォローする", user_relationships_path(@user), method: :post %>
-<% end %>
-<% end %>
-
-
-<%= link_to "フォロー", user_followings_path(@user) %><%= @user.followings.count %>
-<%= link_to "フォロワー", user_followers_path(@user) %><%= @user.followers.count %>
-
-  <%= image_tag @user.get_image, class: "rounded-circle", size: "150x150" %>
-  <%= link_to "編集", edit_user_path(@user),  class: "button" %>
 
 
 
-<h3>投稿一覧</h3>
+
+            </table>
+            <%= link_to "編集", edit_user_path(@user),  class: "button" %>
+        </div>
+        </div>
+
+
+<div class="d-flex px-2 py-3">
 
   <% @posts.each do |post| %>
-  <%= image_tag post.image %>
-  <%#= image_tag 'sample-author1.jpg' %></p>
-  <%= post.post_text %>
-  <p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
-  <%= link_to "詳細", post_path(post.id),  class: "button" %>
-<% end %>
 
+    <div class="card mr-4" style="width:calc(50% - .25rem)">
+
+    <%= link_to post_path(post.id) do %>
+      <%= image_tag post.get_image,class:"card-img-top"; %>
+    <% end %>
+
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <p class="card-title">
+
+              <strong><i class="far fa-flag"></i><span><%=link_to post.title, post_path(post.id)  %></span></strong>
+
+          </p>
+          <p class="card-text">住所：<%= post.address %></p>
+          <p><i class="fas fa-user"></i> By <%= post.user.name%></span></p>
+          <span><% if post.favorited_by?(current_user) %>
+                <p>
+                  <%= link_to post_favorites_path(post), method: :delete do %>
+                    ♥<%= post.favorites.count %> いいね
+                  <% end %>
+                </p>
+                <% else %>
+                <p>
+                  <%= link_to post_favorites_path(post), method: :post do %>
+                    ♡<%= post.favorites.count %> いいね
+                <% end %>
+                <% end %>
+          |</span>
+          <span><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% end %>
+  
+</div>
+
+</dv>
 </main>

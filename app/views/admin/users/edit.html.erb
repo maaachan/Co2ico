@@ -1,36 +1,35 @@
-<h1>Admin::Users#edit</h1>
-<p>Find me in app/views/admin/users/edit.html.erb</p>
+<main>
 
+	<section class="inner">
+	  <h2><%= @user.name %>さんの会員情報編集</h2>
+		<%= form_for(@user, url: admin_user_path(@user)) do |f| %>
+			<table>
+				<thead>
+					<th></th>
+					<th></th>
+					<th></th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>名前</td>
+						<td><%= f.text_field :name, :placeholder =>"#{@user.name}" %></td>
+					</tr>
+					<tr>
+						<td>メールアドレス</td>
+						<td colspan="2"><%= f.email_field :email, autocomplete: "email", :placeholder =>"#{@user.email}" %></td>
+					</tr>
+					<tr>
+						<td>会員ステータス</td>
+						<td><%= f.radio_button :is_deleted, true %><%= f.label :is_deleted, "登録ユーザー", class: "text-active" %></td>
+						<td><%= f.radio_button :is_deleted, false %><%= f.label :is_deleted, "退会ユーザー", class: "text-invalid" %></td>
+					</tr>
+					<tr>
+						<td><%= f.submit "更新", class: "btn btn-primary" %></td>
+						<td><%= link_to "戻る", admin_user_path(@user)%> </td>
 
-
-<section class="inner">
-	<h2 class="section-ttl"><%= @user.name %>さんの会員情報編集</h2>
-	<%= form_for(@user, url: admin_user_path(@user)) do |f| %>
-		<%= render 'layouts/error_messages', resource: @user %>
-		<table>
-			<thead>
-				<th></th>
-				<th></th>
-				<th></th>
-			</thead>
-			<tbody>
-				<tr>
-					<td>名前</td>
-					<td><%= f.label :name, class: "user_name" %> <%= f.text_field :name, :placeholder =>"#{@user.name}" %></td>
-				</tr>
-				<tr>
-					<td>メールアドレス</td>
-					<td colspan="2"><%= f.email_field :email, autocomplete: "email", :placeholder =>"#{@user.email}" %></td>
-				</tr>
-				<tr>
-					<td>会員ステータス</td>
-					<td><%= f.radio_button :is_active, true %><%= f.label :is_active, "登録ユーザー", class: "text-active" %></td>
-					<td><%= f.radio_button :is_active, false %><%= f.label :is_active, "退会ユーザー", class: "text-invalid" %></td>
-				</tr>
-				<tr>
-					<td colspan="3"><%= f.submit "更新", class: "btn btn-primary" %></td>
-				</tr>
-			</tbody>
-		</table>
-	<% end %>
-</section>
+					</tr>
+				</tbody>
+			</table>
+		<% end %>
+		</section>
+</main>

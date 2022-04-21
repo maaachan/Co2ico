@@ -8,14 +8,15 @@ class Public::PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id
-    if @post.save!
+    if @post.save
     redirect_to posts_path
+    else
+      render :new
     end
   end
 
   def index
-    @post = Post.all
-    @posts = params[:hushtag_id].present? ? Hushtag.find(params[:hushtag_id]).posts : Post.all
+     @posts = params[:hushtag_id].present? ? Hushtag.find(params[:hushtag_id]).posts.page : Post.page(params[:page])
   end
 
 
@@ -23,6 +24,8 @@ class Public::PostsController < ApplicationController
   def show
     @post = Post.find(params[:id])
     @post_comment = PostComment.new
+    @user = @post.user
+    #gon.post = @post
   end
 
 
@@ -44,16 +47,17 @@ class Public::PostsController < ApplicationController
 
   def destroy
     @post = Post.find(params[:id])
-    binding
-    if @post.destroy(post_params)
+    if @post.destroy
     redirect_to posts_path
     end
   end
 
   private
   def post_params
-    params.require(:post).permit(:post_text, :genre_id, :image, :favorite, :latitude, :longitude, :post_comment, hushtag_ids: [])
+    params.require(:post).permit(:post_text, :genre_id, :image, :favorite, :title, :address, :latitude, :longitude, :post_comment, :price,hushtag_ids: [])
   end
 
-
+  def configure_permitted_parameters
+  devise_parameter_sanitizer.permit(:post, keys: [:address])
+  end
 end

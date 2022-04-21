@@ -7,14 +7,21 @@ import Rails from "@rails/ujs"
 import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
-
 import "jquery";
+import "skippr.min"
 import "popper.js";
 import "bootstrap";
 import "../stylesheets/application"
 import '@fortawesome/fontawesome-free/js/all'
+import "script.js"
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
 
+
+//= require jquery
+//= require jquery_ujs
+//= require rails-ujs
+//= require activestorage
+//= require_tree .

@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<main>
 
 <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
       <%= select_tag :hushtag_id,
@@ -10,73 +10,44 @@
       %>
     <% end %>
 
-<h3>投稿一覧</h3>
 
-<% @post.each do |post| %>
-  <%= image_tag post.get_image %>
-  <%#= image_tag 'sample-author1.jpg' %></p>
-  <%= post.post_text %>
-  <% post.hushtags.each do |hushtag| %>
-    <%= hushtag.name %>
-<% end %>
+<div class= "wrapper">
+	<div class="row row-eq-height">
+  <% @posts.each do |post| %>
+     <div class="col-12 col-md-8 col-lg-2 text-card-container">
+    <%= link_to post_path(post.id) do %>
+      <%= image_tag post.get_image,class:"card-img-top"; %>
+    <% end %>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12">
+          <p class="card-title">
 
-<p><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></p>
-<%= link_to "詳細", admin_post_path(post.id),  class: "link" %>
-
-<% end %>
-<h2>gmap</h2>
-
-<!-- 地名入力用のinputを追加 -->
-<input id="address" type="textbox" value="Sydney, NSW">
-
-<!-- buttonをクリックしたらcodeAddressを実行　-->
-<input type="button" value="Encode" onclick="codeAddress()">
-<div id='map'>
+            <%= link_to(post_path(post.id), class:"text-dark") do %>
+              <strong><i class="far fa-flag"></i><span><%= post.title %></span></strong>
+            <% end %>
+          </p>
+          <p class="card-text">説明：<%= post.post_text %></p>
+          <p><i class="fas fa-user"></i> By <%= post.user.name%></span></p>
+          <span>
+                <p>
+                  <%= link_to post_favorites_path(post), method: :delete do %>
+                    ♥<%= post.favorites.count %> いいね
+                  <% end %>
+                </p>
+                <p>
+                  <%= link_to post_favorites_path(post), method: :post do %>
+                    ♡<%= post.favorites.count %> いいね
+                <% end %>
+          |</span>
+          <span><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <% end %>
+ </div>
 </div>
+  <%= paginate @posts %>
 
-<style>
-#map{
-  height: 400px;
-}
-</style>
-
-<script>
-/*
-mapを関数の外で定義(codeAddressでも使うため)
-geocoderを用意
-*/
-let map
-let geocoder
-
-function initMap(){
-  // geocoderを初期化
-  geocoder = new google.maps.Geocoder()
-
-  map = new google.maps.Map(document.getElementById('map'), {
-  center: {lat: -34.397, lng: 150.644},
-  zoom: 8
-  });
-}
-
-function codeAddress(){
-  // 入力を取得
-  let inputAddress = document.getElementById('address').value;
-
-  // geocodingしたあとmapを移動
-  geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-    if (status == 'OK') {
-// map.setCenterで地図が移動
-      map.setCenter(results[0].geometry.location);
-
-// google.maps.MarkerでGoogleMap上の指定位置にマーカが立つ
-      var marker = new google.maps.Marker({
-          map: map,
-          position: results[0].geometry.location
-      });
-    } else {
-      alert('Geocode was not successful for the following reason: ' + status);
-    }
-  });
-}
-</script>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API']%>&callback=initMap" ></script>
+</main>

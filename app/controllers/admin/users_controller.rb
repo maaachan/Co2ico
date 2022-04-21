@@ -4,13 +4,21 @@ class Admin::UsersController < ApplicationController
   end
 
   def show
+    @user = User.page(params[:page])
+
   end
 
   def edit
+    @user = User.find(params[:id])
   end
 
   def update
-    @user.update(user_params) ? (redirect_to admin_user_path(@user)) : (render :edit)
+    @user = User.find(params[:id])
+    if @user.update(user_params)
+    redirect_to admin_user_path(@user)
+    else
+    render :edit
+    end
   end
 
   private

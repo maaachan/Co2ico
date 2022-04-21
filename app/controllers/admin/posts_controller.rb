@@ -3,7 +3,7 @@ class Admin::PostsController < ApplicationController
 
   def index
     @post = Post.all
-    @posts = params[:hushtag_id].present? ? Hushtag.find(params[:hushtag_id]).posts : Post.all
+    @posts = params[:hushtag_id].present? ? Hushtag.find(params[:hushtag_id]).posts.page : Post.page(params[:page])
   end
 
 
