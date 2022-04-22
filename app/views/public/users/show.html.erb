@@ -10,7 +10,11 @@
               <td><%= @user.name %></td>
             </tr>
             <tr>
-              <td><%= image_tag @user.get_image, class: "rounded-circle", size: "200x200" %></td>
+              <%if @user.image.attached?%>
+                <td><%= image_tag @user.get_image, class: "rounded-circle", size: "200x200" %></td>
+              <%else%>
+                <td><%= image_tag asset_path("no_image.jpg"), class: "rounded-circle", size: "200x200" %></td>
+              <%end%>
             </tr>
             <tr>
               <td>
@@ -80,8 +84,8 @@
   </div>
 
   <% end %>
-  
-</div>
 
+</div>
+ <%#= paginate @posts %>
 </dv>
 </main>

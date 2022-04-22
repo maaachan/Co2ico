@@ -11,10 +11,13 @@
     <% end %>
 
 
-<div class= "wrapper">
-	<div class="row row-eq-height">
+<h5>投稿一覧</h5>
+<div class="d-flex px-2 py-3">
+
   <% @posts.each do |post| %>
-     <div class="col-12 col-md-8 col-lg-2 text-card-container">
+
+    <div class="card mr-4" style="width:calc(50% - .25rem)">
+
     <%= link_to post_path(post.id) do %>
       <%= image_tag post.get_image,class:"card-img-top"; %>
     <% end %>
@@ -23,23 +26,11 @@
         <div class="col-12">
           <p class="card-title">
 
-            <%= link_to(post_path(post.id), class:"text-dark") do %>
-              <strong><i class="far fa-flag"></i><span><%= post.title %></span></strong>
-            <% end %>
+        <strong><i class="far fa-flag"></i><span><%=link_to post.title, post_path(post.id)  %></span></strong>
+
           </p>
           <p class="card-text">説明：<%= post.post_text %></p>
           <p><i class="fas fa-user"></i> By <%= post.user.name%></span></p>
-          <span>
-                <p>
-                  <%= link_to post_favorites_path(post), method: :delete do %>
-                    ♥<%= post.favorites.count %> いいね
-                  <% end %>
-                </p>
-                <p>
-                  <%= link_to post_favorites_path(post), method: :post do %>
-                    ♡<%= post.favorites.count %> いいね
-                <% end %>
-          |</span>
           <span><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></span>
         </div>
       </div>
@@ -47,7 +38,6 @@
   </div>
   <% end %>
  </div>
-</div>
   <%= paginate @posts %>
 
 </main>

@@ -1,5 +1,5 @@
 <main>
-  <
+  
   <h5>投稿を編集</h5>
   <div class="container">
   <table>
@@ -20,8 +20,7 @@
         <%= f.collection_select :genre_id, @genres, :id, :name %>
     </div>
     <div>
-        <%= f.select :price, {１，０００〜５，０００円未満: 1, ５，０００〜１０，０００円未満: 2, １０，０００〜２０，０００円未満: 3, ２０，０００円以上: 4} %>
-    </div>
+<%= f.select :price, Post.prices %>    </div>
     <div>
         <%= f.collection_check_boxes(:hushtag_ids, Hushtag.all, :id, :name,{include_hidden: false}, html_options: {}) %>
     </div>

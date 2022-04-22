@@ -2,112 +2,118 @@
 <main>
   <div class="container">
     <h5>投稿詳細</h5>
-  <div class="row">
+      <div class="row">
+        <div class="side col-lg-4">
+          <div class= "toumei">
+            <table>
+              <tr>
+                <td><%= link_to @post.user.name,user_path(@user) %></td>
+              </tr>
+              <tr>
+                <td><%= @post.title %></td>
+              </tr>
+              <tr>
+                <td><%= @post.post_text %></td>
+              </tr>
+              <tr>
+                <td><%= @post.genre.name %></td>
+              </tr>
+              <tr>
+                <td><%= @post.price %></td>
+              </tr>
+              <tr>
+                <td><% @post.hushtags.each do |hushtag| %>
+                        <%= hushtag.name %>
+                      <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td><%= @post.address %></td>
+              </tr>
+              <tr><td><% if @post.favorited_by?(current_user) %>
+                        <p>
+                          <%= link_to post_favorites_path(@post), method: :delete do %>
+                            ♥<%= @post.favorites.count %> いいね
+                          <% end %>
+                        </p>
+                      <% else %>
+                      <p>
+                        <%= link_to post_favorites_path(@post), method: :post do %>
+                          ♡<%= @post.favorites.count %> いいね
+                        <% end %>
+                      </p>
+                    <% end %>
+              </tr></td>
+              <tr>
+                <td>コメント件数：<%= @post.post_comments.count %></td>
+              </tr>
+              <tr>
+                <td><%= form_with model: [@post, @post_comment] do |f| %>
+                      <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %><br>
+                      <%= f.submit "送信する" %>
+                      <% end %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                <% if @post.user == current_user %>
+                  <%= link_to "編集する", edit_post_path %>
+                  <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に消しますか?" %>
+                <% end %>
+                </td>
+              </tr>
+            </table>
+          <tr>
+           <div id='map'></div>
+          </tr>
+            <%= link_to "一覧へ戻る", posts_path %>
 
-    <div class="side col-lg-3">
+              <style>
+              #map {
+
+                height: 400px;
+                width: 350px;
+
+              }
+              </style>
+
+                <script>
+                  let map
+
+                  function initMap(){
+                    geocoder = new google.maps.Geocoder()
+                    var test ={lat: <%= @post.latitude %>, lng: <%= @post.longitude %>};
+
+                    map = new google.maps.Map(document.getElementById('map'), {
+                      center: test,
+                      zoom: 15,
+                    });
+
+                    var contentString = '住所：<%= @post.address %>';
+                    var infowindow = new google.maps.InfoWindow({
+                      content: contentString
+                    });
+
+                    marker = new google.maps.Marker({
+                      position:  test,
+                      map: map,
+                      title: contentString
+                    });
+                  }
+                </script>
+
+
+                <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API']%>&callback=initMap" ></script>
+                   </tr>
+            </div>
+          </div>
+        <div class="column col-lg-8">
       <div class= "toumei">
-    <table>
-      <tr>
-        <td><%= link_to @post.user.name,user_path(@user) %></td>
-      </tr>
-      <tr>
-        <td><%= @post.title %></td>
-      </tr>
-      <tr>
-        <td><%= @post.post_text %></td>
-      </tr>
-      <tr>
-        <td><%= @post.genre.name %></td>
-      </tr>
-      <tr>
-        <td><%= @post.price %></td>
-      </tr>
-      <tr>
-        <td><% @post.hushtags.each do |hushtag| %>
-                <%= hushtag.name %>
-              <% end %>
-        </td>
-      </tr>
-      <tr>
-        <td><%= @post.address %></td>
-      </tr>
-      <tr><td><% if @post.favorited_by?(current_user) %>
-    <p>
-      <%= link_to post_favorites_path(@post), method: :delete do %>
-        ♥<%= @post.favorites.count %> いいね
-      <% end %>
-    </p>
-    <% else %>
-    <p>
-      <%= link_to post_favorites_path(@post), method: :post do %>
-        ♡<%= @post.favorites.count %> いいね
-      <% end %>
-    </p>
-  <% end %>
-  </tr></td>
-      <tr><td>コメント件数：<%= @post.post_comments.count %></td></tr>
-      <tr><td><%= form_with model: [@post, @post_comment] do |f| %>
-              <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
-              <%= f.submit "送信する" %>
-              <% end %>
-      </td></tr>
-      <tr><td>
-        <% if @post.user == current_user %>
-          <%= link_to "編集する", edit_post_path %>
-          <%= link_to "削除", post_path(@post), method: :delete, "data-confirm" => "本当に消しますか?" %></td>
-        <% end %>
-       </td></tr>
-    </table>
-      <tr>
-       <div id='map'></div></tr>
-        <%= link_to "一覧へ戻る", posts_path %>
-
-<style>
-#map {
-
-  height: 300px;
-  width: 250px;
-}
-</style>
-
-<script>
-  let map
-
-  function initMap(){
-    geocoder = new google.maps.Geocoder()
-    var test ={lat: <%= @post.latitude %>, lng: <%= @post.longitude %>};
-
-    map = new google.maps.Map(document.getElementById('map'), {
-      center: test,
-      zoom: 15,
-    });
-
-    var contentString = '住所：<%= @post.address %>';
-    var infowindow = new google.maps.InfoWindow({
-      content: contentString
-    });
-
-    marker = new google.maps.Marker({
-      position:  test,
-      map: map,
-      title: contentString
-    });
-  }
-</script>
-
-
-<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAP_API']%>&callback=initMap" ></script>
-   </tr>
-  </div>
-  </div>
-
-   <div class="column col-lg-9">
-    <div class= "toumei">
-      <div class="show">
-      <div><%= image_tag @post.get_image, width: '60%', height: '60%' %></div>
+        <div class="show">
+          <div><%= image_tag @post.get_image, width: '60%', height: '60%' %></div>
+        </div>
+      </div>
       </div>
     </div>
-    </div>
-  </div>
   </div>
 </main>

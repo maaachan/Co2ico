@@ -17,7 +17,7 @@ class Post < ApplicationRecord
    validates :address, presence: true
 
 
-
+ enum price:{'１，０００〜５，０００円未満': 1, '５，０００〜１０，０００円未満': 2, '１０，０００〜２０，０００円未満': 3, '２０，０００円以上': 4}
 
 
 

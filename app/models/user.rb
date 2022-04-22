@@ -35,8 +35,9 @@ class User < ApplicationRecord
 
   def get_image
     unless image.attached?
-      file_path = Rails.root.join('app/assets/images/default.jp')
-      image.attach(io: File.open(file_path), filename: 'default.png')
+      #file_path = Rails.root.join('app/assets/images/default.jp')
+      #image.attach(io: File.open(file_path), filename: 'default.png',)
+
     end
     image
   end

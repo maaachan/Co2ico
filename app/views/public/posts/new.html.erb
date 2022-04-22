@@ -24,7 +24,7 @@
         <dt>ジャンル</dt>
         <dd><%= f.collection_select :genre_id, @genres, :id, :name %></dd>
         <dt>価格帯</dt>
-        <dd><%= f.select :price, {１，０００〜５，０００円未満: 1, ５，０００〜１０，０００円未満: 2, １０，０００〜２０，０００円未満: 3, ２０，０００円以上: 4} %></dd>
+        <dd><%= f.select :price, Post.prices %></dd>
         <dt>取り扱いブランド</dt>
         <dd><%= f.collection_check_boxes(:hushtag_ids, Hushtag.all, :id, :name,{include_hidden: false}, html_options: {}) %></dd>
         <dt><%= f.label :adress, '住所' %></dt>

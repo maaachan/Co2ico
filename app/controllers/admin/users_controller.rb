@@ -5,7 +5,6 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.page(params[:page])
-
   end
 
   def edit

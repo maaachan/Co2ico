@@ -7,6 +7,7 @@ before_action :set_user, only: [:followings, :followers]
   def show
     @user = User.find(params[:id])
     @posts = @user.posts
+    @post = Post.new
 
   end
 

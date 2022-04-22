@@ -108,5 +108,24 @@ footer{
 .home{
   background-image: url(toppage.png);
   justify-content: center;
+  width: 100%;
+  height: 1200px;
 }
 
+.top-conteiner{
+  font-family: 'Vollkorn', serif;
+  background-size: cover;
+  width: 100%;
+  height: 1200px;
+  text-align: center;
+  padding-top: 250px;
+}
+.top-message{
+font-size:3em;
+	text-align:center;
+	line-height:0.95em;
+	font-weight:bold;
+	color: #d3d3d3;
+	text-shadow: 0 0 0.2em rgba(0,0,0,1);
+
+}
