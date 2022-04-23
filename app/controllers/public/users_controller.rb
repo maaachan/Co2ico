@@ -47,10 +47,17 @@ before_action :set_user, only: [:followings, :followers]
     @user = current_user
   end
 
+
+  def favorites
+    @user = User.find(params[:id])
+    favorites= Favorite.where(user_id: @user.id).pluck(:post_id)
+    @favorite_posts = Post.find(favorites)
+  end
+
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :image, :is_deleted)
+    params.require(:user).permit(:name, :email, :image, :is_deleted, :favorite)
   end
 
   def set_user

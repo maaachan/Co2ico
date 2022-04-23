@@ -28,6 +28,11 @@
             </td>
           </tr>
           <tr>
+            <td>
+              <%= link_to "いいねした投稿", favorites_user_path(@user) %>
+            </td>
+          </tr>
+          <tr>
             <td> <%= link_to "フォロー", user_followings_path(@user) %><%= @user.followings.count %></td>
           </tr>
           <tr>

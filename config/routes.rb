@@ -11,6 +11,7 @@ devise_for :users,skip: [:passwords], controllers: {
   sessions: 'public/sessions'
 }
   devise_scope :user do
+
     post 'users/guest_sign_in', to: 'public/sessions#guest_sign_in'
 
   end
@@ -21,6 +22,9 @@ scope module: :public do
     get 'users/unsubscribe'
     patch 'users/withdraw'
   resources :users, only: [:index, :edit, :show, :update, :unsubscribe, :withdraw]do
+     member do
+      get :favorites
+    end
     resource :relationships, only: [:create, :destroy]
 
     get 'followings' => 'relationships#followings', as: 'followings'
@@ -28,6 +32,7 @@ scope module: :public do
   end
 
   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+
      resource :favorites, only: [:create, :destroy]
      resources :post_comments, only: [:create, :destroy]
 

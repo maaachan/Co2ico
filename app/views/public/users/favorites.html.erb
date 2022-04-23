@@ -1,0 +1,20 @@
+
+<main>
+  <div class="container">
+    <h5>いいね一覧</h5>
+        <table>
+            <head>
+              <th>title</th>
+              <th>投稿者</th>
+              <th>投稿日</th>
+            </head>
+          <% @favorite_posts.each do |post|%>
+            <tbody>
+              <td width="80"><%=post.title %></td>
+              <td width="80"><%=post.user.name %></td>
+              <td width="120"><%=post.created_at.strftime('%Y/%m/%d') %></td>
+            </tbody>
+          <% end %>
+        </table>
+  </div>
+</main>
