@@ -1,4 +1,0 @@
-/*global $*/
-$(function() {
-  $('.slider').slick();
-});
