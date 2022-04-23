@@ -10,7 +10,7 @@ import "channels"
 import "jquery";
 import "skippr.min"
 import "popper.js";
-import "bootstrap";
+// import "bootstrap";
 import "../stylesheets/application"
 import '@fortawesome/fontawesome-free/js/all'
 import "script.js"
