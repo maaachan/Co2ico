@@ -1,8 +1,8 @@
 class Public::PostsController < ApplicationController
   def new
-   @post = Post.new
-   @genres = Genre.all
-   @user = current_user
+    @post = Post.new
+    @genres = Genre.all
+    @user = current_user
   end
 
   def create
@@ -14,12 +14,12 @@ class Public::PostsController < ApplicationController
     else
     @genres = Genre.all
     @user = current_user
-      render :new
+    render :new
     end
   end
 
   def index
-     @posts = params[:hushtag_id].present? ? Hushtag.find(params[:hushtag_id]).posts.page : Post.page(params[:page])
+    @posts = params[:hushtag_id].present? ? Hushtag.find(params[:hushtag_id]).posts.page : Post.page(params[:page])
   end
 
 

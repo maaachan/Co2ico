@@ -17,8 +17,8 @@ class Admin::PostsController < ApplicationController
 
   def edit
     #@post.user_id = current_user.id
-    @post = Post.find(params[:id])
-    @genres = Genre.all
+    #@post = Post.find(params[:id])
+    #@genres = Genre.all
 
   end
 

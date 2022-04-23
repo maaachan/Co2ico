@@ -1,9 +1,9 @@
-<main>
-  <p>フォロワー一覧</p><br/>
-  <% if @users.exists? %>
-   <% @users.each do |user| %>
-  <%= link_to  user.name,user_path(user) %>
-  <%= image_tag user.get_image, class: "rounded-circle", size: "100x100" %>
-   <% end %>
-<% end %>
-</main>
+ <main>
+   <p>フォロワー一覧</p><br/>
+     <% if @users.exists? %>
+     <% @users.each do |user| %>
+       <%= link_to  user.name,user_path(user) %>
+       <%= image_tag user.get_image, class: "rounded-circle", size: "100x100" %>
+     <% end %>
+     <% end %>
+ </main>

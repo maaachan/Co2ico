@@ -1,15 +1,12 @@
 <main>
-    <%= form_with model: @genre, url: admin_genres_path, method: :post do |f| %>
-      <h3>ジャンル登録</h3>
-          <tr><%= f.text_field :name %></tr>  
-    　   　<tr><%= f.submit '登録',  class: "button" %></tr>
-    <% end %>
-      
-        <h3>ジャンル一覧</h3>
-          <% @genres.each do |genre| %>
-            <tr><%= genre.name %></tr>
-            <tr><%=link_to '編集する', edit_admin_genre_path(genre.id), class: 'button' %></tr>
-            
-          <% end %>
-  </div>
+  <%= form_with model: @genre, url: admin_genres_path, method: :post do |f| %>
+    <h3>ジャンル登録</h3>
+      <tr><%= f.text_field :name %></tr>
+　    <tr><%= f.submit '登録',  class: "button" %></tr>
+  <% end %>
+    <h3>ジャンル一覧</h3>
+      <% @genres.each do |genre| %>
+        <tr><%= genre.name %></tr>
+        <tr><%=link_to '編集する', edit_admin_genre_path(genre.id), class: 'button' %></tr>
+      <% end %>
 </main>

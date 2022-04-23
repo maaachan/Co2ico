@@ -1,14 +1,14 @@
 
 <main>
-<h3>ユーザー詳細画面</h3>
-  <%= @user.name %>
-   <%if @user.get_image.attached?%>
-                <td><%= image_tag @user.get_image, class: "rounded-circle", size: "200x200" %></td>
-              <%else%>
-                <td><%= image_tag asset_path("no_image.jpg"), class: "rounded-circle", size: "200x200" %></td>
-              <%end%>
-  <%#= image_tag @user.get_image, class: "rounded-circle", size: "150x150" %>
-  <%= link_to "編集", edit_admin_user_path(@user),  class: "link" %>
-  <%= link_to "戻る", admin_users_path %>
+  <h3>ユーザー詳細画面</h3>
+    <%= @user.name %>
+      <%if @user.get_image.attached?%>
+        <td><%= image_tag @user.get_image, class: "rounded-circle", size: "200x200" %></td>
+      <%else%>
+        <td><%= image_tag asset_path("no_image.jpg"), class: "rounded-circle", size: "200x200" %></td>
+      <%end%>
+    <%#= image_tag @user.get_image, class: "rounded-circle", size: "150x150" %>
+    <%= link_to "編集", edit_admin_user_path(@user),  class: "link" %>
+    <%= link_to "戻る", admin_users_path %>
 
 </main>

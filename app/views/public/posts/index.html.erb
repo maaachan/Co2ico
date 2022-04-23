@@ -1,56 +1,52 @@
 <main>
-<div class="container center-block">
-  <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
+  <div class="container center-block">
+    <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
       <%= select_tag :hushtag_id,
-                     options_from_collection_for_select(Hushtag.all, :id, :name, params[:hushtag_id]),
-                     {
-                       prompt: 'タグで絞り込み検索',
-                       onchange: 'submit(this.form);'
-                     }
+                       options_from_collection_for_select(Hushtag.all, :id, :name, params[:hushtag_id]),
+                       {
+                         prompt: 'タグで絞り込み検索',
+                         onchange: 'submit(this.form);'
+                       }
       %>
     <% end %>
-    
-<h5>投稿一覧</h5>
-<div class="d-flex px-2 py-3">
 
-  <% @posts.each do |post| %>
+  <h5>投稿一覧</h5>
+  <div class="d-flex px-2 py-3">
+    <% @posts.each do |post| %>
+      <div class="card mr-4" style="width:calc(50% - .25rem)">
+      <%= link_to post_path(post.id) do %>
+        <%= image_tag post.get_image,class:"card-img-top"; %>
+      <% end %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12">
+            <p class="card-title">
 
-    <div class="card mr-4" style="width:calc(50% - .25rem)">
+                <strong><i class="far fa-flag"></i><span><%=link_to post.title, post_path(post.id)  %></span></strong>
 
-    <%= link_to post_path(post.id) do %>
-      <%= image_tag post.get_image,class:"card-img-top"; %>
-    <% end %>
-
-    <div class="card-body">
-      <div class="row">
-        <div class="col-12">
-          <p class="card-title">
-
-              <strong><i class="far fa-flag"></i><span><%=link_to post.title, post_path(post.id)  %></span></strong>
-
-          </p>
-          <p class="card-text">住所：<%= post.address %></p>
-          <p><i class="fas fa-user"></i> By <%= post.user.name%></span></p>
-          <span><% if post.favorited_by?(current_user) %>
-                <p>
-                  <%= link_to post_favorites_path(post), method: :delete do %>
-                    ♥<%= post.favorites.count %> いいね
+            </p>
+            <p class="card-text">住所：<%= post.address %></p>
+            <p><i class="fas fa-user"></i> By <%= post.user.name%></span></p>
+            <span><% if post.favorited_by?(current_user) %>
+                  <p>
+                    <%= link_to post_favorites_path(post), method: :delete do %>
+                      ♥<%= post.favorites.count %> いいね
+                    <% end %>
+                  </p>
+                  <% else %>
+                  <p>
+                    <%= link_to post_favorites_path(post), method: :post do %>
+                      ♡<%= post.favorites.count %> いいね
                   <% end %>
-                </p>
-                <% else %>
-                <p>
-                  <%= link_to post_favorites_path(post), method: :post do %>
-                    ♡<%= post.favorites.count %> いいね
-                <% end %>
-                <% end %>
-          |</span>
-          <span><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></span>
+                  <% end %>
+            |</span>
+            <span><%= link_to "#{post.post_comments.count} コメント", post_path(post.id) %></span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <% end %>
-</div>
-  <%= paginate @posts %>
+    <% end %>
+  </div>
+    <%= paginate @posts %>
 </main>
