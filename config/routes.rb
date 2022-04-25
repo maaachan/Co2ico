@@ -22,13 +22,13 @@ scope module: :public do
     get 'users/unsubscribe'
     get 'users/withdraw'
   resources :users, only: [:index, :edit, :show, :update, :unsubscribe, :withdraw]do
+    resource :relationships, only: [:create, :destroy]
+    get 'followings' => 'relationships#followings', as: 'followings'
+    get 'followers' => 'relationships#followers', as: 'followers'
      member do
       get :favorites
     end
-    resource :relationships, only: [:create, :destroy]
 
-    get 'followings' => 'relationships#followings', as: 'followings'
-    get 'followers' => 'relationships#followers', as: 'followers'
   end
 
   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
