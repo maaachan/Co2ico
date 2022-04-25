@@ -19,9 +19,9 @@ devise_for :users,skip: [:passwords], controllers: {
 
 scope module: :public do
   root 'homes#top'
-    get 'users/unsubscribe'
-    get 'users/withdraw'
-  resources :users, only: [:index, :edit, :show, :update, :unsubscribe, :withdraw]do
+  get 'users/unsubscribe'
+  delete 'users/withdraw'
+  resources :users, only: [:index, :edit, :show, :update, :unsubscribe, :withdraw] do
     resource :relationships, only: [:create, :destroy]
     get 'followings' => 'relationships#followings', as: 'followings'
     get 'followers' => 'relationships#followers', as: 'followers'
