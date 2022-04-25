@@ -15,7 +15,7 @@
 
       <dl>
     <%= form_with model: @post, url: '/posts', method: :post, local: true  do |f| %>
-        <dt>お店の名前</dt></dt>
+        <dt>お店の名前</dt>
         <dd><%= f.text_field :title %></dd>
         <dt>画像</dt>
         <dd><%= f.file_field :image, width: '20%', height: '20%' %></dd>

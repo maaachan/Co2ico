@@ -1,11 +1,17 @@
 <main>
   <h3>投稿詳細</h3>
-    <%= @post.post_text %>
-    <%= @post.genre.name %>
-    <% @post.hushtags.each do |hushtag| %>
+  <dt>お店の名前</dt>
+  <dd><%= @post.title %></dd>
+  <dt>説明</dt>
+  <dd><%= @post.post_text %></dd>
+  <dt>ジャンル名</dt>
+  <dd><%= @post.genre.name %></dd>
+  <dt>価格帯</dt>
+  <dd><%= @post.price %></dd>
+  <dt>取り扱いブランド名</dt>
+  <dd><% @post.hushtags.each do |hushtag| %>
       <%= hushtag.name %>
-    <% end %>
-
+    <% end %></dd>
 
   <div class="img-container">
     <%= image_tag @post.get_image, width: '30%', height: '30%' %>
