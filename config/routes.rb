@@ -20,7 +20,7 @@ devise_for :users,skip: [:passwords], controllers: {
 scope module: :public do
   root 'homes#top'
     get 'users/unsubscribe'
-    patch 'users/withdraw'
+    get 'users/withdraw'
   resources :users, only: [:index, :edit, :show, :update, :unsubscribe, :withdraw]do
      member do
       get :favorites
