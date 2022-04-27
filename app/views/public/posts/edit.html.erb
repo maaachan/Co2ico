@@ -1,5 +1,5 @@
 <main>
-  
+
   <h5>投稿を編集</h5>
     <div class="container">
       <table>
@@ -20,11 +20,13 @@
             <%= f.collection_select :genre_id, @genres, :id, :name %>
           </div>
           <div>
-            <%= f.select :price, Post.prices %>    
+            <%= f.select :price, Post.prices %>
           </div>
           <div>
             <%= f.collection_check_boxes(:hushtag_ids, Hushtag.all, :id, :name,{include_hidden: false}, html_options: {}) %>
           </div>
+        　<div><%= f.label :adress, '住所' %>
+        　      <%= f.text_field :address %></div>
           <div>
            <%= f.submit '変更を保存', class:"button" %>
         </div>
