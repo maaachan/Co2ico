@@ -1,7 +1,8 @@
 <main>
 
 	<section class="inner">
-	  <h2><%= @user.name %>さんの会員情報編集</h2>
+		<div class="container">
+	  <h5><%= @user.name %>さんの会員情報編集</h5>
 		<%= form_for(@user, url: admin_user_path(@user)) do |f| %>
 			<table>
 				<thead>
@@ -24,12 +25,13 @@
 						<td><%= f.radio_button :is_deleted, false %><%= f.label :is_deleted, "退会ユーザー", class: "text-invalid" %></td>
 					</tr>
 					<tr>
-						<td><%= f.submit "更新", class: "btn btn-primary" %></td>
+						<td><%= f.submit "更新", class: "button" %></td>
 						<td><%= link_to "戻る", admin_user_path(@user)%> </td>
 
 					</tr>
 				</tbody>
 			</table>
 		<% end %>
+		</div>
 	</section>
 </main>

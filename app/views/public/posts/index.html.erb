@@ -13,9 +13,9 @@
   <h5>投稿一覧</h5>
   <div class="d-flex px-2 py-3">
     <% @posts.each do |post| %>
-      <div class="card mr-4" style="width:calc(50% - .25rem)">
+      <div class="card mr-4" style="width:calc(100% - .25rem)">
       <%= link_to post_path(post.id) do %>
-        <%= image_tag post.get_image,class:"card-img-top"; %>
+        <%= image_tag post.get_image,size: "200x200",class:"card-img-top"; %>
       <% end %>
       <div class="card-body">
         <div class="row">
@@ -45,7 +45,6 @@
         </div>
       </div>
     </div>
-
     <% end %>
   </div>
     <%= paginate @posts %>
