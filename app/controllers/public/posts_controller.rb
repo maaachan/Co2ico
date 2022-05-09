@@ -19,7 +19,10 @@ class Public::PostsController < ApplicationController
   end
 
   def index
-    @posts = params[:hushtag_id].present? ? Hushtag.find(params[:hushtag_id]).posts.page : Post.page(params[:page])
+    @q = Post.ransack(params[:q])
+    @posts = @q.result.includes(:user, :favorites).order(created_at: :desc)
+
+    #@posts = params[:hushtag_id].present? ? Hushtag.find(params[:hushtag_id]).posts.page : Post.page(params[:page])
   end
 
 

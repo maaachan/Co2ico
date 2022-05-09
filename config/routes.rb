@@ -29,6 +29,10 @@ scope module: :public do
       get :favorites
     end
 
+  collection do
+    get 'search'
+  end
+
   end
 
   resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do

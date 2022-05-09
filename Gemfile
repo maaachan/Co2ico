@@ -67,3 +67,4 @@ gem "gmaps4rails"
 gem 'ransack'
 gem 'geocoder'
 gem "jquery-rails"
+gem 'ransack'

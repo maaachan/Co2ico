@@ -1,7 +1,16 @@
 class Public::UsersController < ApplicationController
 before_action :set_user, only: [:followings, :followers]
+  before_action :search
+
+  def search
+    # params[:q]のqには検索フォームに入力した値が入る
+    @q = User.ransack(params[:q])
+  end
+
   def index
-    @users = User.all
+    # distinct: trueは重複したデータを除外
+    @users = @q.result(distinct: true)
+    #@users = User.all
   end
 
   def show

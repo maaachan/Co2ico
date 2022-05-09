@@ -1,9 +1,19 @@
 <main>
 	<div class= "container">
-  <% @users.each do |user| %>
-    <%= link_to user.name, user_path(user) %>
-    <%#= image_tag user.get_image, class: "rounded-circle", size: "150x150" %>
-  <% end %>
+		<!--検索フォーム-->
+<%= search_form_for @q do |f| %>
+  <!--name_contは、あいまい検索を指定-->
+  <%= f.text_field :name_cont %>
+  <%= f.submit "検索" %>
+<% end %>
+<!--検索結果-->
+<% if @users.present? %>
+  <!--検索がヒットした場合-->
+<% else %>
+  <!--検索がヒットしなかった場合-->
+  <p>検索結果はありません</p>
+<% end %>
+
   <table>
 	<thead>
 		<th>会員ID</th>
