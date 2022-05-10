@@ -39,7 +39,9 @@
             <td><%= link_to "フォロワー", user_followers_path(@user) %><%= @user.followers.count %></td>
           </tr>
         </table>
+         <% if @post.user == current_user %>
           <%= link_to "編集", edit_user_path(@user),  class: "button" %>
+        <% end %>
       </div>
     </div>
 
