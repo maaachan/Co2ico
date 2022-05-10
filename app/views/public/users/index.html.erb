@@ -14,7 +14,8 @@
   <p>検索結果はありません</p>
 <% end %>
 
-  <table>
+  <table class="table table-bordered">
+
 	<thead>
 		<th>会員ID</th>
 		<th>名前</th>
@@ -37,6 +38,7 @@
 			</tr>
 		<% end %>
 	</tbody>
+	  <%#= paginate @users %>
 	</div>
 </table>
 </div>

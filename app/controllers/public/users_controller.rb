@@ -9,7 +9,7 @@ before_action :set_user, only: [:followings, :followers]
 
   def index
     # distinct: trueは重複したデータを除外
-    @users = @q.result(distinct: true)
+    @users = @q.result(distinct: true)#.users.page : User.page(params[:page])
     #@users = User.all
   end
 
