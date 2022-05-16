@@ -12,9 +12,17 @@ Admin.create!(
 
 
 Hushtag.create([
-    { name: 'Henderschema' },
-    { name: 'studious' },
-    { name: 'clane'},
-    { name: 'beautifulpeaple'},
-    { name: 'ships'},
+    { name: 'man'},
+    { name: 'woman'},
+    { name: 'unisex'},
+    { name: '古着' },
+    { name: 'セレクト' },
+    { name: 'vintage'},
+    { name: 'ハイブランド取り扱い'},
+    { name: '入りやすさ◎'},
+    { name: '入りにくい'},
+    { name: '店員が追いかけてこない'},
+    { name: '取り扱い商品が多い'},
+    { name: 'スタッフの数◎'},
+    { name: 'スタッフが少ない'},
     ])

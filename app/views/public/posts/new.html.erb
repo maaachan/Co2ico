@@ -26,7 +26,11 @@
         <dt>価格帯</dt>
         <dd><%= f.select :price, Post.prices %></dd>
         <dt>取り扱いブランド</dt>
-        <dd><%= f.collection_check_boxes(:hushtag_ids, Hushtag.all, :id, :name,{include_hidden: false}, html_options: {}) %></dd>
+        <dd>
+          <div clsss="scroll">
+          <%= f.collection_check_boxes(:hushtag_ids, Hushtag.all, :id, :name,{include_hidden: false}, html_options: {}) %>
+          </div>
+        </dd>
         <dt><%= f.label :adress, '住所' %></dt>
         <dd><%= f.text_field :address %></dd>
         　　<%= link_to "戻る", user_path(@user),  class: "button" %>
