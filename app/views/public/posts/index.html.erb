@@ -1,7 +1,7 @@
 <main>
   <div class="container center-block">
     <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
-      <%= select_tag :hushtag_id,
+      <%#= select_tag :hushtag_id,
                        options_from_collection_for_select(Hushtag.all, :id, :name, params[:hushtag_id]),
                        {
                          prompt: 'ブランド名で探す',
@@ -11,6 +11,12 @@
     <% end %>
 
     <%= search_form_for @q do |f| %>
+          <%= select_tag :hushtag_id,
+                       options_from_collection_for_select(Hushtag.all, :id, :name, params[:hushtag_id]),
+                       {
+                         prompt: 'ブランド名で探す'
+                       }
+      %>
    <%=f.search_field :user_name_cont, placeholder: 'ユーザー名' %>
    <%=f.search_field :title_cont, placeholder: 'お店の名前' %>
    <%=f.search_field :address_cont, placeholder: '住所' %>
@@ -62,5 +68,5 @@
     <% end %>
     </div>
   </div>
-    <%#= paginate @posts %>
+    <%= paginate @posts %>
 </main>
