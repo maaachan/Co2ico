@@ -10,7 +10,7 @@ class Public::RegistrationsController < Devise::RegistrationsController
 
  before_action :ensure_normal_user, only: :destroy
 
-
+before_action :configure_permitted_parameters, if: :devise_controller?
 
   # GET /resource/sign_up
   # def new
