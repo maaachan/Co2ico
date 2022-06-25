@@ -1,7 +1,7 @@
 <main>
   <div class="container center-block">
     <%= form_tag posts_path, method: :get, class: 'boards__searchForm' do %>
-      <%#= select_tag :hushtag_id,
+      <%= select_tag :hushtag_id,
                        options_from_collection_for_select(Hushtag.all, :id, :name, params[:hushtag_id]),
                        {
                          prompt: 'ブランド名で探す',
